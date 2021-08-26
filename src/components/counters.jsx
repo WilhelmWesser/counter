@@ -13,43 +13,28 @@ const Counters = () => {
 
   const handleDelete = (counterId) => {
     const newCounters = counters.filter((c) => c.id !== counterId);
-    console.log(counterId);
     setCounters(newCounters);
   };
 
   const handleReset = () => setCounters(initialState);
 
   const handleIncrement = (counterId) => {
-    const elementToIncrement = counters.find(
+    const newCounters = [...counters];
+    const incrementedElementIndex = counters.findIndex(
       (counter) => counter.id === counterId
     );
-    const incrementedElement = elementToIncrement;
-    incrementedElement.value++;
-    const newCounters = [...counters];
-    newCounters.splice(
-      counters.indexOf(elementToIncrement),
-      1,
-      incrementedElement
-    );
-    console.log(newCounters);
+    newCounters[incrementedElementIndex].value++;
     setCounters(newCounters);
   };
 
   const handleDecrement = (counterId) => {
-    const elementToDecrement = counters.find(
+    const newCounters = [...counters];
+    const decrementedElementIndex = counters.findIndex(
       (counter) => counter.id === counterId
     );
-    if (elementToDecrement.value <= 0) {
-      return;
+    if (newCounters[decrementedElementIndex].value > 0) {
+      newCounters[decrementedElementIndex].value--;
     }
-    const decrementedElement = elementToDecrement;
-    decrementedElement.value -= 1;
-    const newCounters = [...counters];
-    newCounters.splice(
-      counters.indexOf(elementToDecrement),
-      1,
-      decrementedElement
-    );
     setCounters(newCounters);
   };
 
